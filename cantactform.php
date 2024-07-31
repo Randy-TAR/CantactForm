@@ -21,11 +21,11 @@
         }
         .php{
             text-align: left;
-            border: 2px solid  black;
+            /* border: 2px solid  black; */
             font-size: 20px;
             width: 520px;
             min-height: 120px;
-            background-color: white;
+            /* background-color: white; */
             word-wrap: break-word;
         }
         input[type="text"]{
@@ -44,6 +44,14 @@
             width: 93%;
             color: white;
         }
+
+        .contact {
+            padding: 2%;
+            margin: 5px;
+            background-color: white;
+            border-radius: 5px;
+            border: 2px solid gray;
+        }
     </style>
 </head>
 <body>
@@ -58,14 +66,26 @@
         </form><br>
         <div class="php">
             <?php
+            session_start();
             $input1=$_POST['name'];
             $input2=$_POST['email'];
             $input3=$_POST['message'];
-            $inputs = array($input1, $input2, $input3) ;
-            $alldata=array($inputs);
-            foreach($alldata as $input){
-                echo '<b>',$input[0],'</b>','<br>','<b>Email:</b>', $input[1],'<br><b>Message:</b>'. $input[2];
+            $input1b = "<b> $input1 </b>";
+            $input2b = "<b>Email:</b> $input2";
+            $input3b = "<b>Message:</b> $input3";
+            $inputs = array($input1b, $input2b, $input3b);
+            $_SESSION['storage'][] = $inputs;
+            $alldata = $_SESSION['storage'];
+        foreach($_SESSION['storage'] as $input){
+            echo "<div class='contact'>";
+            foreach($input as $key){
+                echo $key,'<br>';
             }
+        echo '</div>';
+        }
+        $inputs= [];
+        // session_destroy();
+            die();
             ?>
         </div>
     </div>
